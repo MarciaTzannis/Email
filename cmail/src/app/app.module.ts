@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './modules/login/login.component';
 import { CadastroComponent } from './modules/cadastro/cadastro.component';
 import { CaixaDeEntradaComponent } from './modules/caixa-de-entrada/caixa-de-entrada.component';
@@ -25,6 +25,7 @@ import { FormFieldDirective } from './components/form-group/form-field.directive
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     ModuleRoteamento
   ],
   providers: [],
