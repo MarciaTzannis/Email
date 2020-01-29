@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,10 @@ export class LoginComponent implements OnInit {
   }
   mensagemErro: any;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private loginService: LoginService,
+    private roteador: Router
+    ) { }
 
   ngOnInit() {
   }
@@ -24,19 +29,20 @@ export class LoginComponent implements OnInit {
     
     if (formLogin.valid) {
 
-      this.httpClient
-        .post('http://localhost:3200/login', this.login)
+      this.loginService.logar(this.login)
         .subscribe(
           (response: any) => {
-            console.log(response);
+            // console.log(response);
             localStorage.setItem('cmail-token', response.token);
+            this.roteador.navigate(['/inbox']);
           },
         (responseError: HttpErrorResponse) => {
+          console.log(responseError);
           this.mensagemErro = responseError.error.message;
-          console.log('deu certo!');
         }
       )
-
+    } else {
+      formLogin.form.markAllAsTouched();
     }
   }
 }

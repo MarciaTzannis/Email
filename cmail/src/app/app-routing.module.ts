@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guard/auth.guard';
 
 const rotas: Routes = [
   {
@@ -16,6 +17,7 @@ const rotas: Routes = [
   },
   {
     path: 'inbox',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/caixa-de-entrada/caixa-de-entrada.module')
       .then(m => m.CaixaDeEntradaModule)
@@ -34,6 +36,9 @@ const rotas: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 export class AppRoutingModule { }
