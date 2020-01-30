@@ -30,6 +30,16 @@ export class CaixaDeEntradaComponent {
   toogleEmail() {
     this._isNewEmailOpen = !this._isNewEmailOpen;
   }
+
+  ngOnInit() {
+    this.emailService
+      .listar()
+      .subscribe(lista => {
+        this.emailList = lista;
+      })
+  }
+
+
       // setValue(event, key) {
       //   const value = event.target.value;
       //   this.email[key] = value;
@@ -69,4 +79,16 @@ export class CaixaDeEntradaComponent {
         (error) => console.log(error)
 
   }
+
+  handleRemoveEmail(event: string, id: string) {
+    this.emailService.deletar(id)
+      .subscribe(
+        (res) => {
+          this.emailList = this.emailList.filter
+          (email => email.id != id);
+        },
+        (erro) => console.log(erro)
+      )
+  }
+
 }
