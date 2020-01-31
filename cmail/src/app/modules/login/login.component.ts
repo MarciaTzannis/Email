@@ -3,12 +3,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
 
   login = {
@@ -19,10 +21,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private roteador: Router
+    private roteador: Router,
+    private title: Title
     ) { }
 
   ngOnInit() {
+    this.title.setTitle('Login');
   }
 
   handleLogin (formLogin: NgForm) {

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EmailService } from 'src/app/services/email.service';
+import { PageService } from 'src/app/services/page.service';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
   selector: 'app-caixa-de-entrada',
@@ -19,8 +21,12 @@ export class CaixaDeEntradaComponent {
     conteudo: ''
   };
 
+  termoParaFiltro = '';
+
   constructor(
-    private emailService: EmailService
+    private emailService: EmailService,
+    private pageServive: PageService,
+    private headerService: HeaderService
   ) {}
 
   get isNewEmailOpen() {
@@ -37,6 +43,8 @@ export class CaixaDeEntradaComponent {
       .subscribe(lista => {
         this.emailList = lista;
       })
+      this.pageServive.defineTitulo('Caixa de entrada - Cmail');
+      this.headerService.valorDoFiltro.subscribe(novoValor => this.termoParaFiltro = novoValor);
   }
 
 
@@ -89,6 +97,18 @@ export class CaixaDeEntradaComponent {
         },
         (erro) => console.log(erro)
       )
+  }
+
+  filtrarEmail() {
+    const termoParaFiltroMinusculo = this.termoParaFiltro.toLowerCase();
+
+    return this.emailList.filter(email =>
+      {
+        const assunto = 
+        email.assunto.toLowerCase();
+        return assunto.includes
+        (termoParaFiltroMinusculo)
+      })
   }
 
 }
