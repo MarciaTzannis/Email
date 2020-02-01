@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { DadosEmailModel } from 'src/app/models/dados.email';
 
 @Component({
   selector: 'cmail-list-item',
@@ -8,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export class CmailListItemComponent implements OnInit {
 
-  @Input() dadosEmail = {};
+  @Input() dadosEmail: DadosEmailModel;
   @Output('eventoVaiRemover') vaiRemover = new EventEmitter();
 
   constructor() {}

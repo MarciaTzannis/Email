@@ -19,6 +19,7 @@ export class LoginService {
     .pipe(
       map((response: ResponseModel) => {
         localStorage.setItem('cmail-token', response.token);
+        localStorage.setItem('user-info', JSON.stringify(response));
         return response
       })
     )
